@@ -1,0 +1,121 @@
+﻿<Window x:Class="DesktopBd.MVVM.View.RegistrationView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DesktopBd.MVVM.View"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d"
+        Title="Registration" Height="442.5" Width="250
+        " ResizeMode="NoResize" WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding SaveFiles}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Window.Background>
+        <ImageBrush ImageSource="/DesktopBd;component/Resources/background_img_1.jpg"/>
+    </Window.Background>
+    <Window.Resources>
+        <Style x:Key="TextBoxStyle"  TargetType="TextBox">
+            <Setter Property="BorderBrush" Value="#FF707070"></Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, 
+AncestorType=Window}, Path=DataContext.ColorFlag}"  Value="true">
+                    <Setter Property="BorderBrush" Value="Red" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="PasswordBoxStyle"  TargetType="PasswordBox">
+            <Setter Property="BorderBrush" Value="#FF707070"></Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, 
+AncestorType=Window}, Path=DataContext.ColorFlag}"  Value="true">
+                    <Setter Property="BorderBrush" Value="Red" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Label Content="Login" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="65,56,0,0" FontWeight="Bold">
+            <Label.Foreground>
+                <SolidColorBrush Color="#FFFCFCFC" Opacity="0.5"/>
+            </Label.Foreground>
+        </Label>
+        <TextBox HorizontalAlignment="Left" Style="{StaticResource TextBoxStyle}" Height="23" TextWrapping="Wrap" Text="{Binding Login, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120" Margin="59,82,0,0" TextAlignment="Center" FontFamily="Segoe UI Semibold" FontWeight="Bold" FontSize="12" Cursor="IBeam" MaxLength="8" ToolTip="Имя пользователя. Не более восьми символов." >
+            <TextBox.Foreground>
+                <RadialGradientBrush>
+                    <GradientStop Color="#FFB97171" Offset="0.246"/>
+                    <GradientStop Color="#FFF4F0F0"/>
+                </RadialGradientBrush>
+            </TextBox.Foreground>
+            <TextBox.Background>
+                <SolidColorBrush Color="White" Opacity="0.1"/>
+            </TextBox.Background>
+        </TextBox>
+        <Label Content="{Binding LoginInfo}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="59,99,0,0" Foreground="#FFD90E06" FontSize="7" FontStyle="Italic" HorizontalContentAlignment="Right" Width="120"/>
+        <Label Content="Password" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="65,141,0,0" FontWeight="Bold" >
+            <Label.Foreground>
+                <SolidColorBrush Color="#FFFCFCFC" Opacity="0.5"/>
+            </Label.Foreground>
+        </Label>
+        <PasswordBox x:Name="firstPasswordBox" Style="{StaticResource PasswordBoxStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="59,167,0,0" Height="23" Width="120" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="12" Cursor="IBeam" MaxLength="16" ToolTip="Ваш пароль. От четырёх до шестнадцати символов.">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="PasswordChanged">
+                    <i:InvokeCommandAction Command="{Binding FirstPasswordChange}" 
+                                           CommandParameter="{Binding ElementName=firstPasswordBox}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <PasswordBox.Foreground>
+                <RadialGradientBrush>
+                    <GradientStop Color="#FFB97171" Offset="0.246"/>
+                    <GradientStop Color="#FFF4F0F0"/>
+                </RadialGradientBrush>
+            </PasswordBox.Foreground>
+            <PasswordBox.Background>
+                <SolidColorBrush Color="White" Opacity="0.1"/>
+            </PasswordBox.Background>
+        </PasswordBox>
+        <PasswordBox  x:Name="secondPasswordBox" HorizontalAlignment="Left" Style="{StaticResource PasswordBoxStyle}" VerticalAlignment="Top" Margin="59,233,0,0" Height="23" Width="120" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="12" Cursor="IBeam" MaxLength="16" ToolTip="Повторите ваш пароль для подтврждения регистрации.">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="PasswordChanged">
+                    <i:InvokeCommandAction Command="{Binding SecondPasswordChange}" 
+                                           CommandParameter="{Binding ElementName=secondPasswordBox}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <PasswordBox.Foreground>
+                <RadialGradientBrush>
+                    <GradientStop Color="#FFB97171" Offset="0.246"/>
+                    <GradientStop Color="#FFF4F0F0"/>
+                </RadialGradientBrush>
+            </PasswordBox.Foreground>
+            <PasswordBox.Background>
+                <SolidColorBrush Color="White" Opacity="0.1"/>
+            </PasswordBox.Background>
+        </PasswordBox>
+        <Label  Content="{Binding PasswordInfo}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="59,251,0,0" Foreground="#FFD90E06" FontSize="7" FontStyle="Italic" HorizontalContentAlignment="Right" Width="120"/>
+        <Button  Content="Register" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="59,297,0,0" Height="26" FontWeight="Bold" ToolTip="Зарегестрировать аккаунт" IsEnabled="True"  IsDefault="True"  Command="{Binding Registration}">
+            <Button.Background>
+                <SolidColorBrush Color="#FFDDDDDD" Opacity="0.1"/>
+            </Button.Background>
+            <Button.Foreground>
+                <RadialGradientBrush>
+                    <GradientStop Color="#FFDF6565" Offset="0.078"/>
+                    <GradientStop Color="White"/>
+                </RadialGradientBrush>
+            </Button.Foreground>
+        </Button>
+        <Button  Content="Exit" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="59,332,0,0" Height="26" FontWeight="Bold" ToolTip="Зарегестрировать аккаунт" IsEnabled="True"  IsDefault="True"  Command="{Binding Exit}">
+            <Button.Background>
+                <SolidColorBrush Color="#FFDDDDDD" Opacity="0.1"/>
+            </Button.Background>
+            <Button.Foreground>
+                <RadialGradientBrush>
+                    <GradientStop Color="#FFDF6565" Offset="0.078"/>
+                    <GradientStop Color="White"/>
+                </RadialGradientBrush>
+            </Button.Foreground>
+        </Button>
+    </Grid>
+</Window>

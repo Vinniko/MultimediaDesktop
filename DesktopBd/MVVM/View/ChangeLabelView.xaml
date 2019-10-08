@@ -1,0 +1,104 @@
+﻿<Window x:Class="DesktopBd.MVVM.View.ChangeLabelView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:local="clr-namespace:DesktopBd.MVVM.View"
+        mc:Ignorable="d"
+        Title="Изменение ярлыка" Height="267.6" Width="419.727" WindowStyle="ToolWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" >
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closed">
+            <i:InvokeCommandAction Command="{Binding CloseWindow}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Window.Resources>
+
+        <Style x:Key="PathViewerStyle"  TargetType="TextBox">
+            <Setter Property="ToolTip" Value="Выбранный путь ярлыка"></Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, 
+AncestorType=Window}, Path=DataContext.PathViewToolTipFlag}"  Value="true" >
+                    <Setter Property="ToolTip" Value="{Binding LabelPathInfo}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="TextLabelStyle"  TargetType="Label">
+            <Setter Property="IsEnabled" Value="false"></Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, 
+AncestorType=Window}, Path=DataContext.SettingsFlag}"  Value="true" >
+                    <Setter Property="IsEnabled" Value="True" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="LabelTaskTextBoxStyle"  TargetType="TextBox">
+            <Setter Property="IsEnabled" Value="false"></Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, 
+AncestorType=Window}, Path=DataContext.SettingsFlag}"  Value="true" >
+                    <Setter Property="IsEnabled" Value="True" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="AddImageStyle"  TargetType="Button">
+            <Setter Property="IsEnabled" Value="false"></Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, 
+AncestorType=Window}, Path=DataContext.SettingsFlag}"  Value="true" >
+                    <Setter Property="IsEnabled" Value="True" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="TaskLabelBoxStyle"  TargetType="Label">
+            <Setter Property="Visibility" Value="Hidden"></Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, 
+AncestorType=Window}, Path=DataContext.PathViewToolTipFlag}"  Value="true" >
+                    <Setter Property="Visibility" Value="Visible" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+    </Window.Resources>
+    <Grid>
+        <Label Content="Путь ярлыка:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,2,0,0"/>
+        <TextBox  Style="{StaticResource PathViewerStyle}" HorizontalAlignment="Left" Height="17" TextWrapping="Wrap" VerticalAlignment="Top" Width="155" Margin="10,28,0,0" Focusable="False" AllowDrop="True" Text="{Binding LabelPath}"/>
+        <Button Content="Обзор..." HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="90,50,0,0" Background="{x:Null}" ToolTip="Выбрать путь ярлыка" Height="24" Command="{Binding AddLabel}"/>
+        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="10,50,0,0" Height="24" IsReadOnly="True" ToolTip="Тип изменяемого ярлыка. Рекомендовано: All" SelectedIndex="{Binding FileType}">
+            <TextBlock Text="All"/>
+            <TextBlock Text="Docs"/>
+            <TextBlock Text="Folders"/>
+            <TextBlock Text="Sounds"/>
+            <TextBlock Text="Images"/>
+            <TextBlock Text="Videos"/>
+        </ComboBox>
+        <Label Content="Задать вручную:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,74,0,0" ToolTip="Задать парамметры ярлыка вручную"/>
+        <CheckBox  Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="126,79,0,0" ToolTip="Задать парамметры ярлыка вручную" IsChecked="{Binding SettingsFlag}"/>
+        <Label Content="Текст ярлыка:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,137,0,0" Style="{StaticResource TextLabelStyle}"/>
+        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" Margin="10,163,0,0" ToolTip="Имя ярлыка" Style="{StaticResource LabelTaskTextBoxStyle}" Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="TextChanged">
+                    <i:InvokeCommandAction Command="{Binding LabelTitleChange}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TextBox>
+        <Border x:Name="Showing" BorderBrush="White" BorderThickness="1" HorizontalAlignment="Left" Height="176" VerticalAlignment="Top" Width="180" Margin="209,10,0,0" ToolTip="То, как будет выглядеть ваш ярлык">
+            <Border x:Name="PreImage" BorderBrush="White" BorderThickness="1"  HorizontalAlignment="Center" VerticalAlignment="Center" Height="100" Width="100">
+                <StackPanel>
+                    <Image Source="{Binding LabelImage}"/>
+                    <Label Style="{StaticResource TaskLabelBoxStyle}" Margin="1,0,0.6,-29.6" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="96" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+            </Border>
+        </Border>
+        <Button Content="Обзор..." HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="314,191,0,0" ToolTip="Выбрать свое изображение" Style="{StaticResource AddImageStyle}" Command="{Binding AddImage}"/>
+        <Button  Content="Изменить" HorizontalAlignment="Left" VerticalAlignment="Top" Width="144" Margin="10,196,0,0" ToolTip="Изменение ярлыка"  IsDefault="True" Command="{Binding ChangeLabel}" IsEnabled="{Binding ChangeFlag}" />
+        <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="154,193,0,0" Height="31" Width="155" Foreground="#FFD73131"/>
+
+
+    </Grid>
+</Window>
