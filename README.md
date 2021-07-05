@@ -37,8 +37,11 @@
 ---------------------------------------------------------------------------------------------
 
 > Email: vinnik_21@bk.ru / vinniko333@gmail.com
+
 > Telegram: https://t.me/vinnik0
+
 > LinkedIn: https://www.linkedin.com/in/алексей-винник-7450a5208/
+
 > HeadHunter: https://spb.hh.ru/resume/f658e91bff090474030039ed1f5a4141446844
 
 
