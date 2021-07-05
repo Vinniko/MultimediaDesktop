@@ -15,7 +15,7 @@
 и в файле DataBaseService в переменной DataBaseAdress указать данные для подключения к базе данных.
 
 Пример:
-<br>const String DataBaseAdress = "server=localhost;user=root;database=mydatabase;password=root;";
+>const String DataBaseAdress = "server=localhost;user=root;database=mydatabase;password=root;";
 
 ---------------------------------------------------------------------------------------------
 2. Запуск
@@ -36,10 +36,10 @@
 4. Связь
 ---------------------------------------------------------------------------------------------
 
-<br> Email: vinnik_21@bk.ru / vinniko333@gmail.com
-<br> Telegram: https://t.me/vinnik0
-<br> LinkedIn: https://www.linkedin.com/in/алексей-винник-7450a5208/
-<br> HeadHunter: https://spb.hh.ru/resume/f658e91bff090474030039ed1f5a4141446844
+> Email: vinnik_21@bk.ru / vinniko333@gmail.com
+> Telegram: https://t.me/vinnik0
+> LinkedIn: https://www.linkedin.com/in/алексей-винник-7450a5208/
+> HeadHunter: https://spb.hh.ru/resume/f658e91bff090474030039ed1f5a4141446844
 
 
 
